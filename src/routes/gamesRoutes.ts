@@ -10,6 +10,6 @@ const controller = new GameController(parser, logPath);
 
 routes.get('/', controller.index);
 routes.get('/:id', controller.show);
-routes.get('/ranking', controller.rank);
+routes.get('/all/ranking', controller.rank);
 
 export default routes;

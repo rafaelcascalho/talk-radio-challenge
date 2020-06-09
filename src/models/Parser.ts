@@ -2,7 +2,9 @@ import Player from './Player';
 import Game from './Game';
 import fs from 'fs';
 import * as constants from '../constants';
-import { Rank, GamesObj } from '../../types';
+import { Kills, Rank, GamesObj } from '../../types';
+
+type numOrStr = number | string;
 
 class Parser {
   private gameIndex: number;
@@ -22,7 +24,7 @@ class Parser {
       };
     }
 
-    return this.games[id].toObject();
+    return this.games[id - 1].toObject();
   }
 
   allGames() {
@@ -30,7 +32,21 @@ class Parser {
   }
 
   rank() {
-    return {};
+    let ranking: Rank = {};
+    let rankedPlayers: Kills = this.countKills();
+
+    let { orderedKills, rankedKills } = this.mapPlayersKills(rankedPlayers);
+
+    let kills: number;
+    let end = orderedKills.length;
+    for (let index = 0; index < end; index++) {
+      kills = orderedKills[index];
+      ranking[`position_${index}`] = {
+        username: rankedKills.get(kills),
+        kills: kills,
+      };
+    }
+    return ranking;
   }
 
   async readLogFile(filePath: string) {
@@ -76,9 +92,9 @@ class Parser {
   }
 
   private addGame() {
-    //this.finishLastGame();
-
-    this.startNewGame();
+    this.gameIndex += 1;
+    let game = new Game();
+    this.games.push(game);
   }
 
   private processUserData(line: string) {
@@ -119,15 +135,50 @@ class Parser {
     this.games[this.gameIndex].disconnectPlayer(playerId);
   }
 
-  private startNewGame() {
-    this.gameIndex += 1;
-    let game = new Game();
-    this.games.push(game);
-  }
-
   private presentGame(games: GamesObj, game: Game, index: number) {
     games[`game_${index + 1}`] = game.toObject();
     return games;
+  }
+
+  private countKills(): Kills {
+    let games = this.games.map((game) => game.toObject());
+    let rankedPlayers: Kills = {};
+    let end = 0;
+    let username: string;
+    games.forEach((game) => {
+      end = game.players.length;
+      for (let index = 0; index < end; index++) {
+        username = game.players[index];
+        if (username in rankedPlayers) {
+          rankedPlayers[username] += game.kills[username];
+        } else {
+          rankedPlayers[username] = game.kills[username];
+        }
+      }
+    });
+    return rankedPlayers;
+  }
+
+  private mapPlayersKills(rankedPlayers: Kills) {
+    let kills = Object.values(rankedPlayers);
+    let orderedKills = kills.sort(this.decreasingComparison);
+    let map = new Map();
+    let pairs = Object.entries(rankedPlayers);
+    let rankedKills = pairs.reduce(this.createKillsMap, map);
+    return { orderedKills, rankedKills };
+  }
+
+  private decreasingComparison(first: number, second: number) {
+    return second - first;
+  }
+
+  private createKillsMap(
+    map: Map<numOrStr, numOrStr>,
+    playerInfo: Array<numOrStr>
+  ) {
+    let index = playerInfo[1];
+    map.set(index, playerInfo[0]);
+    return map;
   }
 }
 
