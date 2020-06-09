@@ -1,4 +1,5 @@
 # Talk Radio Challenge
+
 This is a quake log file parser developed for the challenge of talk radio.
 The log file used currently is based on the email and is in the folder `src/data`.
 
@@ -66,7 +67,6 @@ and name it `game.log`.
 - [Ts-node-dev](https://www.npmjs.com/package/ts-node-dev) - To restart the node process on file changes
 - [Express](https://expressjs.com/) - Express as the http requests handler
 - [NodeJs](https://nodejs.org/) - Backend environment for javascript
-- [Dotenv](https://www.npmjs.com/package/dotenv) - Env files loader
 - [Jest](https://jestjs.io/) - Automated tests library
 - [Prettier](https://prettier.io/) - Code formatter
 - [Editorconfig](https://editorconfig.org/) - Code style enforcer
