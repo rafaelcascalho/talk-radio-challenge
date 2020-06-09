@@ -54,7 +54,7 @@ describe('Parser', () => {
     });
 
     test('then it allows access to specific game data', () => {
-      const game = parser.getGame(0);
+      const game = parser.getGame(1);
 
       expect(game).toBeInstanceOf(Object);
       expect(game).toHaveProperty('total_kills');
