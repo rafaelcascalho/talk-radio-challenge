@@ -18,7 +18,6 @@
   "scripts": {
     "dev": "npx ts-node-dev src/server.ts",
     "test": "npx jest --coverage",
-    "test:watch": "jest --coverage --watchAll",
     "clean": "rm -rf coverage src/**/*.js"
   },
   "keywords": [
