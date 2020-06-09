@@ -1,0 +1,35 @@
+{
+  "name": "talkradio-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0",
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "dev": "",
+    "test": "npx jest --coverage",
+    "test:watch": "jest --coverage --watchAll",
+    "clean": "rm -rf coverage src/**/*.js"
+  },
+  "keywords": [
+    "quake",
+    "quake-log",
+    "parser",
+    "quake-log-parser",
+    "api",
+    "ranking",
+    "games"
+  ],
+  "author": "Rafael Cascalho",
+  "license": "ISC"
+}
