@@ -18,6 +18,7 @@ class GameController {
 
   show = (request: express.Request, response: express.Response) => {
     let id: number = parseInt(request.params.id);
+
     const gameNotFound = id < 1 || id > 21;
     if (gameNotFound) {
       return response.status(404).json({
