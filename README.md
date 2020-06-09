@@ -1,5 +1,7 @@
 # Talk Radio Challenge
 
+[![rafaelcascalho](https://circleci.com/gh/rafaelcascalho/talk-radio-challenge.svg?style=svg)](#)
+
 This is a quake log file parser developed for the challenge of talk radio.
 The log file used currently is based on the email and is in the folder `src/data`.
 
